@@ -1,3 +1,6 @@
+# Various
+sandbox*.py
+
 # Data for TensorFlow
 data/
 
