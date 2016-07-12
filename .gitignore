@@ -4,6 +4,9 @@ sandbox*.py
 # Data for TensorFlow
 data/
 
+# PyCharm
+.idea/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
