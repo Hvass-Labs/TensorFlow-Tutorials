@@ -3,6 +3,8 @@ sandbox*.py
 
 # Data for TensorFlow
 data/
+checkpoints/
+logs/
 
 # PyCharm
 .idea/
