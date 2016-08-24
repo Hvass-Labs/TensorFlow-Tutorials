@@ -4,6 +4,7 @@ sandbox*.py
 # Data for TensorFlow
 data/
 checkpoints/
+checkpoints*
 logs/
 
 # PyCharm
