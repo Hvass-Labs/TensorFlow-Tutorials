@@ -23,6 +23,7 @@
 ########################################################################
 #
 # This file is part of the TensorFlow Tutorials available at:
+#
 # https://github.com/Hvass-Labs/TensorFlow-Tutorials
 #
 # Published under the MIT License. See the file LICENSE for details.
@@ -33,10 +34,7 @@
 
 import numpy as np
 import pickle
-import urllib.request
-import tarfile
-import sys
-import os
+import download
 
 ########################################################################
 
@@ -78,22 +76,6 @@ _num_images_train = _num_files_train * _images_per_file
 
 ########################################################################
 # Private functions for downloading, unpacking and loading data-files.
-
-def _print_download_progress(count, block_size, total_size):
-    """
-    Used for printing the download progress.
-    Used as a call-back function in maybe_download_and_extract().
-    """
-
-    # Percentage completion.
-    pct_complete = float(count * block_size) / total_size
-
-    # Status-message. Note the \r which means the line should overwrite itself.
-    msg = "\r- Download progress: {0:.1%}".format(pct_complete)
-
-    # Print it.
-    sys.stdout.write(msg)
-    sys.stdout.flush()
 
 
 def _get_file_path(filename=""):
@@ -187,33 +169,7 @@ def maybe_download_and_extract():
     in data_path (set this variable first to the desired path).
     """
 
-    # Check if the path for unpacked data-files already exists.
-    # If it exists then we assume the tar-ball has already been
-    # downloaded and extracted, otherwise we need to do that now.
-    if not os.path.exists(_get_file_path()):
-        # Check if the destination path exists, otherwise create it.
-        if not os.path.exists(data_path):
-            os.makedirs(data_path)
-
-        # Filename for saving the file downloaded from the internet.
-        # Use the original file-name and add it to the data_path.
-        filename = data_url.split('/')[-1]
-        file_path = os.path.join(data_path, filename)
-
-        # Download the file from the internet.
-        file_path, _ = urllib.request.urlretrieve(url=data_url,
-                                                  filename=file_path,
-                                                  reporthook=_print_download_progress)
-
-        print()
-        print("Download finished. Extracting files.")
-
-        # Unpack the tar-ball.
-        tarfile.open(name=file_path, mode="r:gz").extractall(data_path)
-
-        print("Done.")
-    else:
-        print("CIFAR-10 data has apparently already been downloaded and unpacked.")
+    download.maybe_download_and_extract(url=data_url, download_dir=data_path)
 
 
 def load_class_names():

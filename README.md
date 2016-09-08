@@ -1,5 +1,7 @@
 # TensorFlow-Tutorials
 
+[Original repository on GitHub](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
+
 ## Contents
 
 1. Simple Linear Model ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/01_Simple_Linear_Model.ipynb))
@@ -13,6 +15,8 @@
 5. Ensemble Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/05_Ensemble_Learning.ipynb))
 
 6. CIFAR-10 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/06_CIFAR-10.ipynb))
+
+7. Inception Model ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/07_Inception_Model.ipynb))
 
 ## Videos
 
