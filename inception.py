@@ -3,12 +3,42 @@
 # The Inception Model v3 for TensorFlow.
 #
 # This is a pre-trained Deep Neural Network for classifying images.
-# You provide a filename for a jpeg-file which will be loaded and input
-# to the Inception model, which will then output an array of numbers
-# indicating how likely it is that the input-image is of each class.
+# You provide an image or filename for a jpeg-file which will be
+# loaded and input to the Inception model, which will then output
+# an array of numbers indicating how likely it is that the
+# input-image is of each class.
 #
 # See the example code at the bottom of this file or in the
-# accompanying Python Notebook.
+# accompanying Python Notebooks.
+#
+# Tutorial #07 shows how to use the Inception model.
+# Tutorial #08 shows how to use it for Transfer Learning.
+#
+# What is Transfer Learning?
+#
+# Transfer Learning is the use of a Neural Network for classifying
+# images from another data-set than it was trained on. For example,
+# the Inception model was trained on the ImageNet data-set using
+# a very powerful and expensive computer. But the Inception model
+# can be re-used on data-sets it was not trained on without having
+# to re-train the entire model, even though the number of classes
+# are different for the two data-sets. This allows you to use the
+# Inception model on your own data-sets without the need for a
+# very powerful and expensive computer to train it.
+#
+# The last layer of the Inception model before the softmax-classifier
+# is called the Transfer Layer because the output of that layer will
+# be used as the input in your new softmax-classifier (or as the
+# input for another neural network), which will then be trained on
+# your own data-set.
+#
+# The output values of the Transfer Layer are called Transfer Values.
+# These are the actual values that will be input to your new
+# softmax-classifier or to another neural network that you create.
+#
+# The word 'bottleneck' is also sometimes used to refer to the
+# Transfer Layer or Transfer Values, but it is a confusing word
+# that is not used here.
 #
 # Implemented in Python 3.5 with TensorFlow v0.10.0rc0
 #
@@ -28,6 +58,7 @@ import numpy as np
 import tensorflow as tf
 import download
 import os
+import sys
 
 ########################################################################
 # Various directories and file-names.
@@ -51,15 +82,24 @@ path_graph_def = os.path.join(data_dir, "classify_image_graph_def.pb")
 ########################################################################
 # Names for tensors in the computational graph.
 
-# Name of the tensor for feeding the input image - must be in jpeg-format.
-tensor_name_jpeg = "DecodeJpeg/contents:0"
+# Name of the tensor for feeding the input image as jpeg.
+tensor_name_input_jpeg = "DecodeJpeg/contents:0"
+
+# Name of the tensor for feeding the decoded input image.
+# Use this for feeding images in other formats than jpeg.
+tensor_name_input_image = "DecodeJpeg:0"
 
 # Name of the tensor for the resized input image.
 # This is used to retrieve the image after it has been resized.
 tensor_name_resized_image = "ResizeBilinear:0"
 
 # Name of the tensor for the output of the softmax-classifier.
+# This is used for classifying images with the Inception model.
 tensor_name_softmax = "softmax:0"
+
+# Name of the tensor for the output of the Inception model.
+# This is used for Transfer Learning.
+tensor_name_transfer_layer = "pool_3:0"
 
 ########################################################################
 
@@ -206,6 +246,8 @@ class Inception:
 
     When you create a new instance of this class, the Inception model
     will be loaded and can be used immediately without training.
+
+    The Inception model can also be used for Transfer Learning.
     """
 
     def __init__(self):
@@ -247,6 +289,12 @@ class Inception:
         # Get the tensor for the resized image that is input to the neural network.
         self.resized_image = self.graph.get_tensor_by_name(tensor_name_resized_image)
 
+        # Get the tensor for the last layer of the graph, aka. the transfer-layer.
+        self.transfer_layer = self.graph.get_tensor_by_name(tensor_name_transfer_layer)
+
+        # Get the number of elements in the transfer-layer.
+        self.transfer_len = self.transfer_layer.get_shape()[3]
+
         # Create a TensorFlow session for executing the graph.
         self.session = tf.Session(graph=self.graph)
 
@@ -259,36 +307,58 @@ class Inception:
         self.session.close()
 
     @staticmethod
-    def _create_feed_dict(image_path):
+    def _create_feed_dict(image_path=None, image=None):
         """
-        Create and return a feed-dict with the image from the given file-path.
-        The image must be a jpeg.
+        Create and return a feed-dict with an image.
+
+        :param image_path:
+            The input image is a jpeg-file with this file-path.
+
+        :param image:
+            The input image is a 3-dim array which is already decoded.
+            The pixels MUST be values between 0 and 255 (float or int).
+
+        :return:
+            Dict for feeding to the Inception graph in TensorFlow.
         """
 
-        # Read the jpeg-image as an array of bytes.
-        image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+        if image is not None:
+            # Image is passed in as a 3-dim array that is already decoded.
+            feed_dict = {tensor_name_input_image: image}
 
-        # Create the feed-dict.
-        feed_dict = {tensor_name_jpeg: image_data}
+        elif image_path is not None:
+            # Read the jpeg-image as an array of bytes.
+            image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+
+            # Image is passed in as a jpeg-encoded image.
+            feed_dict = {tensor_name_input_jpeg: image_data}
+
+        else:
+            raise ValueError("Either image or image_path must be set.")
 
         return feed_dict
 
-    def classify(self, image_path):
+    def classify(self, image_path=None, image=None):
         """
-        Use the Inception model to classify an image.
-
-        The input is a file-path to a jpeg-image which will be loaded
-        and fed to the neural network.
+        Use the Inception model to classify a single image.
 
         The image will be resized automatically to 299 x 299 pixels,
-        see the discussion in the accompanying Python Notebook.
+        see the discussion in the Python Notebook for Tutorial #07.
 
-        Returns an array of floats indicating how likely
-        the Inception model thinks the image is of each given class.
+        :param image_path:
+            The input image is a jpeg-file with this file-path.
+
+        :param image:
+            The input image is a 3-dim array which is already decoded.
+            The pixels MUST be values between 0 and 255 (float or int).
+
+        :return:
+            Array of floats (aka. softmax-array) indicating how likely
+            the Inception model thinks the image is of each given class.
         """
 
-        # Create a feed-dict for the TensorFlow graph with the image.
-        feed_dict = self._create_feed_dict(image_path=image_path)
+        # Create a feed-dict for the TensorFlow graph with the input image.
+        feed_dict = self._create_feed_dict(image_path=image_path, image=image)
 
         # Execute the TensorFlow session to get the predicted labels.
         pred = self.session.run(self.y_pred, feed_dict=feed_dict)
@@ -298,37 +368,53 @@ class Inception:
 
         return pred
 
-    def get_resized_image(self, image_path):
+    def get_resized_image(self, image_path=None, image=None):
         """
-        Input the given image to the Inception model and return
+        Input an image to the Inception model and return
         the resized image. The resized image can be plotted so
         we can see what the neural network sees as its input.
 
-        Returns a 3-dim array holding the image.
+        :param image_path:
+            The input image is a jpeg-file with this file-path.
+
+        :param image:
+            The input image is a 3-dim array which is already decoded.
+            The pixels MUST be values between 0 and 255 (float or int).
+
+        :return:
+            A 3-dim array holding the image.
         """
 
-        # Create a feed-dict for the TensorFlow graph with the image.
-        feed_dict = self._create_feed_dict(image_path=image_path)
+        # Create a feed-dict for the TensorFlow graph with the input image.
+        feed_dict = self._create_feed_dict(image_path=image_path, image=image)
 
         # Execute the TensorFlow session to get the predicted labels.
-        image = self.session.run(self.resized_image, feed_dict=feed_dict)
+        resized_image = self.session.run(self.resized_image, feed_dict=feed_dict)
 
         # Remove the 1st dimension of the 4-dim tensor.
-        image = image.squeeze(axis=0)
+        resized_image = resized_image.squeeze(axis=0)
 
-        # Normalize pixels to be between 0.0 and 1.0
-        image = image.astype(float) / 255.0
+        # Scale pixels to be between 0.0 and 1.0
+        resized_image = resized_image.astype(float) / 255.0
 
-        return image
+        return resized_image
 
     def print_scores(self, pred, k=10, only_first_name=True):
         """
         Print the scores (or probabilities) for the top-k predicted classes.
 
-        Input is the predicted class-labels from the predict() function.
+        :param pred:
+            Predicted class-labels returned from the predict() function.
 
-        Some class-names are lists of names, if you only want the first name,
-        then set only_first_name=True.
+        :param k:
+            How many classes to print.
+
+        :param only_first_name:
+            Some class-names are lists of names, if you only want the first name,
+            then set only_first_name=True.
+
+        :return:
+            Nothing.
         """
 
         # Get a sorted index for the pred-array.
@@ -347,6 +433,147 @@ class Inception:
 
             # Print the score and class-name.
             print("{0:>6.2%} : {1}".format(score, name))
+
+    def transfer_values(self, image_path=None, image=None):
+        """
+        Calculate the transfer-values for the given image.
+        These are the values of the last layer of the Inception model before
+        the softmax-layer, when inputting the image to the Inception model.
+
+        The transfer-values allow us to use the Inception model in so-called
+        Transfer Learning for other data-sets and different classifications.
+
+        It may take several hours or more to calculate the transfer-values
+        for all images in a data-set. It is therefore useful to cache the
+        results using the function transfer_values_cache() below.
+
+        :param image_path:
+            The input image is a jpeg-file with this file-path.
+
+        :param image:
+            The input image is a 3-dim array which is already decoded.
+            The pixels MUST be values between 0 and 255 (float or int).
+
+        :return:
+            The transfer-values for those images.
+        """
+
+        # Create a feed-dict for the TensorFlow graph with the input image.
+        feed_dict = self._create_feed_dict(image_path=image_path, image=image)
+
+        # Use TensorFlow to run the graph for the Inception model.
+        # This calculates the values for the last layer of the Inception model
+        # prior to the softmax-classification, which we call transfer-values.
+        transfer_values = self.session.run(self.transfer_layer, feed_dict=feed_dict)
+
+        # Reduce to a 1-dim array.
+        transfer_values = np.squeeze(transfer_values)
+
+        return transfer_values
+
+
+########################################################################
+# Batch-processing.
+
+
+def process_images(fn, images):
+    """
+    Call the function fn() for each image, e.g. transfer_values() from
+    the Inception model above. All the results are concatenated and returned.
+
+    :param fn:
+        Function to be called for each image.
+
+    :param images:
+        List of images to process.
+
+    :return:
+        Numpy array with the results.
+    """
+
+    # Number of images.
+    num_images = len(images)
+
+    # Pre-allocate list for the results.
+    # This holds references to other arrays. Initially the references are None.
+    result = [None] * num_images
+
+    # For each input image.
+    for i, image in enumerate(images):
+        # Status-message. Note the \r which means the line should overwrite itself.
+        msg = "\r- Processing image: {0:>6} / {1}".format(i+1, num_images)
+
+        # Print the status message.
+        sys.stdout.write(msg)
+        sys.stdout.flush()
+
+        # Process the image and store the result for later use.
+        result[i] = fn(image=image)
+
+    # Print newline.
+    print()
+
+    # Convert the result to a numpy array.
+    result = np.array(result)
+
+    return result
+
+
+########################################################################
+
+
+def transfer_values_cache(file_path, images, model=None):
+    """
+    This function either loads the transfer-values if they have
+    already been calculated, otherwise it calculates the values
+    and saves them to a file that can be re-loaded again later.
+
+    Because the transfer-values can be expensive to compute, it can
+    be useful to cache the values through this function instead
+    of calling transfer_values() directly on the Inception model.
+
+    See Tutorial #08 for an example on how to use this function.
+
+    :param file_path:
+        File containing the cached transfer-values for the images.
+
+    :param images:
+        4-dim array with images. [image_number, height, width, colour_channel]
+
+    :param model:
+        Instance of the Inception-class above. If None then
+        a new instance will be created if necessary.
+
+    :return:
+        The transfer-values from the Inception model for those images.
+    """
+
+    # If the cache-file exists.
+    if os.path.exists(file_path):
+        # Load the transfer-values from the file.
+        with open(file_path, mode='rb') as file:
+            transfer_values = np.load(file)
+
+        print("- Transfer-values loaded from cache-file.")
+    else:
+        # Otherwise calculate the transfer-values for all the images and save them.
+
+        if model is None:
+            # Create an instance of the Inception-model if None is supplied.
+            # This takes about a second to execute.
+            # The object instance could be re-used across multiple calls of this
+            # function, but this is a tiny part of the overall time-usage.
+            model = Inception()
+
+        # Calculate the transfer-values of the Inception model for the given images.
+        transfer_values = process_images(fn=model.transfer_values,
+                                         images=images)
+
+        # Save the transfer-values to a file.
+        with open(file_path, mode='wb') as file:
+            np.save(file, transfer_values)
+
+    return transfer_values
 
 
 ########################################################################
@@ -372,5 +599,7 @@ if __name__ == '__main__':
 
     # Close the TensorFlow session.
     model.close()
+
+    # Transfer Learning is demonstrated in Tutorial #08.
 
 ########################################################################
