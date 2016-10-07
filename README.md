@@ -29,6 +29,8 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 8. Transfer Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb))
 
+9. Video Data ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
