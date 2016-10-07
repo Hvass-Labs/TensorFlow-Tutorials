@@ -57,6 +57,7 @@
 import numpy as np
 import tensorflow as tf
 import download
+from cache import cache
 import os
 import sys
 
@@ -306,6 +307,22 @@ class Inception:
 
         self.session.close()
 
+    def _write_summary(self, logdir='summary/'):
+        """
+        Write graph to summary-file so it can be shown in TensorBoard.
+
+        This function is used for debugging and may be changed or removed in the future.
+
+        :param logdir:
+            Directory for writing the summary-files.
+
+        :return:
+            Nothing.
+        """
+
+        writer = tf.train.SummaryWriter(logdir=logdir, graph=self.graph)
+        writer.close()
+
     @staticmethod
     def _create_feed_dict(image_path=None, image=None):
         """
@@ -476,7 +493,7 @@ class Inception:
 # Batch-processing.
 
 
-def process_images(fn, images):
+def process_images(fn, images=None, image_paths=None):
     """
     Call the function fn() for each image, e.g. transfer_values() from
     the Inception model above. All the results are concatenated and returned.
@@ -487,19 +504,28 @@ def process_images(fn, images):
     :param images:
         List of images to process.
 
+    :param image_paths:
+        List of file-paths for the images to process.
+
     :return:
         Numpy array with the results.
     """
 
+    # Are we using images or image_paths?
+    using_images = images is not None
+
     # Number of images.
-    num_images = len(images)
+    if using_images:
+        num_images = len(images)
+    else:
+        num_images = len(image_paths)
 
     # Pre-allocate list for the results.
     # This holds references to other arrays. Initially the references are None.
     result = [None] * num_images
 
     # For each input image.
-    for i, image in enumerate(images):
+    for i in range(num_images):
         # Status-message. Note the \r which means the line should overwrite itself.
         msg = "\r- Processing image: {0:>6} / {1}".format(i+1, num_images)
 
@@ -508,7 +534,10 @@ def process_images(fn, images):
         sys.stdout.flush()
 
         # Process the image and store the result for later use.
-        result[i] = fn(image=image)
+        if using_images:
+            result[i] = fn(image=images[i])
+        else:
+            result[i] = fn(image_path=image_paths[i])
 
     # Print newline.
     print()
@@ -522,7 +551,7 @@ def process_images(fn, images):
 ########################################################################
 
 
-def transfer_values_cache(file_path, images, model=None):
+def transfer_values_cache(cache_path, model, images=None, image_paths=None):
     """
     This function either loads the transfer-values if they have
     already been calculated, otherwise it calculates the values
@@ -534,44 +563,30 @@ def transfer_values_cache(file_path, images, model=None):
 
     See Tutorial #08 for an example on how to use this function.
 
-    :param file_path:
+    :param cache_path:
         File containing the cached transfer-values for the images.
+
+    :param model:
+        Instance of the Inception model.
 
     :param images:
         4-dim array with images. [image_number, height, width, colour_channel]
 
-    :param model:
-        Instance of the Inception-class above. If None then
-        a new instance will be created if necessary.
+    :param image_paths:
+        Array of file-paths for images (must be jpeg-format).
 
     :return:
         The transfer-values from the Inception model for those images.
     """
 
-    # If the cache-file exists.
-    if os.path.exists(file_path):
-        # Load the transfer-values from the file.
-        with open(file_path, mode='rb') as file:
-            transfer_values = np.load(file)
+    # Helper-function for processing the images if the cache-file does not exist.
+    # This is needed because we cannot supply both fn=process_images
+    # and fn=model.transfer_values to the cache()-function.
+    def fn():
+        return process_images(fn=model.transfer_values, images=images, image_paths=image_paths)
 
-        print("- Transfer-values loaded from cache-file.")
-    else:
-        # Otherwise calculate the transfer-values for all the images and save them.
-
-        if model is None:
-            # Create an instance of the Inception-model if None is supplied.
-            # This takes about a second to execute.
-            # The object instance could be re-used across multiple calls of this
-            # function, but this is a tiny part of the overall time-usage.
-            model = Inception()
-
-        # Calculate the transfer-values of the Inception model for the given images.
-        transfer_values = process_images(fn=model.transfer_values,
-                                         images=images)
-
-        # Save the transfer-values to a file.
-        with open(file_path, mode='wb') as file:
-            np.save(file, transfer_values)
+    # Read the transfer-values from a cache-file, or calculate them if the file does not exist.
+    transfer_values = cache(cache_path=cache_path, fn=fn)
 
     return transfer_values
 
