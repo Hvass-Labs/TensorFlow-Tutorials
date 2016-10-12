@@ -72,13 +72,13 @@ data_url = "http://download.tensorflow.org/models/image/imagenet/inception-2015-
 data_dir = "inception/"
 
 # File containing the mappings between class-number and uid. (Downloaded)
-path_uid_to_cls = os.path.join(data_dir, "imagenet_2012_challenge_label_map_proto.pbtxt")
+path_uid_to_cls = "imagenet_2012_challenge_label_map_proto.pbtxt"
 
 # File containing the mappings between uid and string. (Downloaded)
-path_uid_to_name = os.path.join(data_dir, "imagenet_synset_to_human_label_map.txt")
+path_uid_to_name = "imagenet_synset_to_human_label_map.txt"
 
 # File containing the TensorFlow graph definition. (Downloaded)
-path_graph_def = os.path.join(data_dir, "classify_image_graph_def.pb")
+path_graph_def = "classify_image_graph_def.pb"
 
 ########################################################################
 # Names for tensors in the computational graph.
@@ -142,7 +142,8 @@ class NameLookup:
         self._cls_to_uid = {}   # Map from cls to uid.
 
         # Read the uid-to-name mappings from file.
-        with open(file=path_uid_to_name, mode='r') as file:
+        path = os.path.join(data_dir, path_uid_to_name)
+        with open(file=path, mode='r') as file:
             # Read all lines from the file.
             lines = file.readlines()
 
@@ -163,7 +164,8 @@ class NameLookup:
                 self._uid_to_name[uid] = name
 
         # Read the uid-to-cls mappings from file.
-        with open(file=path_uid_to_cls, mode='r') as file:
+        path = os.path.join(data_dir, path_uid_to_cls)
+        with open(file=path, mode='r') as file:
             # Read all lines from the file.
             lines = file.readlines()
 
@@ -270,7 +272,8 @@ class Inception:
             # platforms. In this case it is saved as a binary file.
 
             # Open the graph-def file for binary reading.
-            with tf.gfile.FastGFile(path_graph_def, 'rb') as file:
+            path = os.path.join(data_dir, path_graph_def)
+            with tf.gfile.FastGFile(path, 'rb') as file:
                 # The graph-def is a saved copy of a TensorFlow graph.
                 # First we need to create an empty graph-def.
                 graph_def = tf.GraphDef()
