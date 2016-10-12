@@ -34,6 +34,7 @@
 
 import numpy as np
 import pickle
+import os
 import download
 from dataset import one_hot_encoded
 
@@ -86,7 +87,7 @@ def _get_file_path(filename=""):
     If filename=="" then return the directory of the files.
     """
 
-    return data_path + "cifar-10-batches-py/" + filename
+    return os.path.join(data_path, "cifar-10-batches-py/", filename)
 
 
 def _unpickle(filename):
