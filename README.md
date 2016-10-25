@@ -69,12 +69,16 @@ the contents of the GitHub repository as a Zip-file and extract it manually.
 
 ## Requirements
 
+These tutorials were developed on Linux using **Python 3.5** (the [Anaconda](https://www.continuum.io/downloads) distribution) and [PyCharm](https://www.jetbrains.com/pycharm/).
+
+There are reports that Python 2.7 gives error messages with these tutorials. Please make sure you are using **Python 3.5** or later!
+
 There are different ways of installing and running TensorFlow. This section describes how I did it
 for these tutorials. You may want to do it differently and you can search the internet for instructions.
 
-These tutorials were developed on Linux using [Anaconda](https://www.continuum.io/downloads) with Python 3.5 and [PyCharm](https://www.jetbrains.com/pycharm/).
+### Example Setup
 
-After installing Anaconda, you should create a [conda environment](http://conda.pydata.org/docs/using/envs.html)
+After installing [Anaconda](https://www.continuum.io/downloads), you should create a [conda environment](http://conda.pydata.org/docs/using/envs.html)
 so you do not destroy your main installation in case you make a mistake somewhere:
 
     conda create --name tf python=3
