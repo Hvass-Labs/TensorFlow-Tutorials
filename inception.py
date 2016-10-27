@@ -81,28 +81,6 @@ path_uid_to_name = "imagenet_synset_to_human_label_map.txt"
 path_graph_def = "classify_image_graph_def.pb"
 
 ########################################################################
-# Names for tensors in the computational graph.
-
-# Name of the tensor for feeding the input image as jpeg.
-tensor_name_input_jpeg = "DecodeJpeg/contents:0"
-
-# Name of the tensor for feeding the decoded input image.
-# Use this for feeding images in other formats than jpeg.
-tensor_name_input_image = "DecodeJpeg:0"
-
-# Name of the tensor for the resized input image.
-# This is used to retrieve the image after it has been resized.
-tensor_name_resized_image = "ResizeBilinear:0"
-
-# Name of the tensor for the output of the softmax-classifier.
-# This is used for classifying images with the Inception model.
-tensor_name_softmax = "softmax:0"
-
-# Name of the tensor for the output of the Inception model.
-# This is used for Transfer Learning.
-tensor_name_transfer_layer = "pool_3:0"
-
-########################################################################
 
 
 def maybe_download():
@@ -253,6 +231,28 @@ class Inception:
     The Inception model can also be used for Transfer Learning.
     """
 
+    # Name of the tensor for feeding the input image as jpeg.
+    tensor_name_input_jpeg = "DecodeJpeg/contents:0"
+
+    # Name of the tensor for feeding the decoded input image.
+    # Use this for feeding images in other formats than jpeg.
+    tensor_name_input_image = "DecodeJpeg:0"
+
+    # Name of the tensor for the resized input image.
+    # This is used to retrieve the image after it has been resized.
+    tensor_name_resized_image = "ResizeBilinear:0"
+
+    # Name of the tensor for the output of the softmax-classifier.
+    # This is used for classifying images with the Inception model.
+    tensor_name_softmax = "softmax:0"
+
+    # Name of the tensor for the unscaled outputs of the softmax-classifier (aka. logits).
+    tensor_name_softmax_logits = "softmax/logits:0"
+
+    # Name of the tensor for the output of the Inception model.
+    # This is used for Transfer Learning.
+    tensor_name_transfer_layer = "pool_3:0"
+
     def __init__(self):
         # Mappings between class-numbers and class-names.
         # Used to print the class-name as a string e.g. "horse" or "plant".
@@ -288,13 +288,16 @@ class Inception:
 
         # Get the output of the Inception model by looking up the tensor
         # with the appropriate name for the output of the softmax-classifier.
-        self.y_pred = self.graph.get_tensor_by_name(tensor_name_softmax)
+        self.y_pred = self.graph.get_tensor_by_name(self.tensor_name_softmax)
+
+        # Get the unscaled outputs for the Inception model (aka. softmax-logits).
+        self.y_logits = self.graph.get_tensor_by_name(self.tensor_name_softmax_logits)
 
         # Get the tensor for the resized image that is input to the neural network.
-        self.resized_image = self.graph.get_tensor_by_name(tensor_name_resized_image)
+        self.resized_image = self.graph.get_tensor_by_name(self.tensor_name_resized_image)
 
         # Get the tensor for the last layer of the graph, aka. the transfer-layer.
-        self.transfer_layer = self.graph.get_tensor_by_name(tensor_name_transfer_layer)
+        self.transfer_layer = self.graph.get_tensor_by_name(self.tensor_name_transfer_layer)
 
         # Get the number of elements in the transfer-layer.
         self.transfer_len = self.transfer_layer.get_shape()[3]
@@ -326,8 +329,7 @@ class Inception:
         writer = tf.train.SummaryWriter(logdir=logdir, graph=self.graph)
         writer.close()
 
-    @staticmethod
-    def _create_feed_dict(image_path=None, image=None):
+    def _create_feed_dict(self, image_path=None, image=None):
         """
         Create and return a feed-dict with an image.
 
@@ -344,14 +346,14 @@ class Inception:
 
         if image is not None:
             # Image is passed in as a 3-dim array that is already decoded.
-            feed_dict = {tensor_name_input_image: image}
+            feed_dict = {self.tensor_name_input_image: image}
 
         elif image_path is not None:
             # Read the jpeg-image as an array of bytes.
             image_data = tf.gfile.FastGFile(image_path, 'rb').read()
 
             # Image is passed in as a jpeg-encoded image.
-            feed_dict = {tensor_name_input_jpeg: image_data}
+            feed_dict = {self.tensor_name_input_jpeg: image_data}
 
         else:
             raise ValueError("Either image or image_path must be set.")
