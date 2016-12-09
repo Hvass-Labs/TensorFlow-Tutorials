@@ -4,6 +4,7 @@ sandbox*.py
 # Data for TensorFlow
 data/
 inception/
+vgg16/
 checkpoints/
 checkpoints*
 logs/
