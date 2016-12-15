@@ -105,16 +105,15 @@ NumPy and other dependencies:
 
     conda install scikit-learn
 
-You may also need to install Jupyter Notebook and matplotlib:
+You may also need to install other dependencies, such as:
 
-    conda install jupyter matplotlib
+    conda install jupyter matplotlib scipy pillow
 
-Now you have to install TensorFlow. This procedure might change in the future. At the time of this writing,
-the most recent TensorFlow version was 0.10.0. It comes in different builds depending on your needs.
-I need the Python 3.5 build for a Linux PC with only a CPU (no GPU). So I look at the [list of builds](https://www.tensorflow.org/versions/master/get_started/os_setup.html)
-and find the appropriate link which in my case is:
- 
-    pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.10.0-cp35-cp35m-linux_x86_64.whl
+Now you have to install TensorFlow. It is now possible to install the CPU-version of TensorFlow
+directly using pip. We also need the [PrettyTensor](https://github.com/google/prettytensor)
+add-on package so we install that as well:
+
+    pip install tensorflow prettytensor
 
 It is much more complicated to install the GPU-version because you also need various NVIDIA drivers.
 That is not described here.
