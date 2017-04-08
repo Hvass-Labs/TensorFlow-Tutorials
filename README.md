@@ -56,7 +56,7 @@ If you want to see the exact versions of the source-code that were used in the Y
 then you can [browse the history](https://github.com/Hvass-Labs/TensorFlow-Tutorials/commits/master)
 of commits to the GitHub repository.
 
-## Installation
+## Downloading
 
 Some of the Python Notebooks use source-code located in different files to allow for easy re-use
 across multiple tutorials. It is therefore recommended that you download the whole repository
@@ -79,16 +79,22 @@ This also makes it easy to update the tutorials, simply by executing this comman
 You can also [download](https://github.com/Hvass-Labs/TensorFlow-Tutorials/archive/master.zip)
 the contents of the GitHub repository as a Zip-file and extract it manually.
 
-## Requirements
-
-These tutorials were developed on Linux using **Python 3.5** (the [Anaconda](https://www.continuum.io/downloads) distribution) and [PyCharm](https://www.jetbrains.com/pycharm/).
-
-There are reports that Python 2.7 gives error messages with these tutorials. Please make sure you are using **Python 3.5** or later!
+## Installation
 
 There are different ways of installing and running TensorFlow. This section describes how I did it
 for these tutorials. You may want to do it differently and you can search the internet for instructions.
 
-### Example Setup
+If you are new to using Python and Linux, etc. then this may be challenging
+to get working and you may need to do internet searches for error-messages, etc.
+It will get easier with practice.
+
+### Python Version 3.5 or Later
+
+These tutorials were developed on Linux using **Python 3.5 / 3.6** (the [Anaconda](https://www.continuum.io/downloads) distribution) and [PyCharm](https://www.jetbrains.com/pycharm/).
+
+There are reports that Python 2.7 gives error messages with these tutorials. Please make sure you are using **Python 3.5** or later!
+
+### Environment
 
 After installing [Anaconda](https://www.continuum.io/downloads), you should create a [conda environment](http://conda.pydata.org/docs/using/envs.html)
 so you do not destroy your main installation in case you make a mistake somewhere:
@@ -99,24 +105,23 @@ Now you can switch to the new environment by running the following (on Linux):
 
     source activate tf
 
-Some of these tutorials use [scikit-learn](http://scikit-learn.org/stable/install.html)
-which can be installed in your new conda environment as follows. This also installs
-NumPy and other dependencies:
+### Required Packages
 
-    conda install scikit-learn
+The tutorials require several Python packages to be installed. The packages are listed in
+[requirements.txt](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/requirements.txt)
+First you need to edit this file and select whether you want to install the CPU or GPU
+version of TensorFlow.
 
-You may also need to install other dependencies, such as:
+To install the required Python packages and dependencies you first have to activate the
+conda-environment as described above, and then you run the following command
+in a terminal:
 
-    conda install jupyter matplotlib scipy pillow
+    pip install -r requirements.txt
 
-Now you have to install TensorFlow. It is now possible to install the CPU-version of TensorFlow
-directly using pip. We also need the [PrettyTensor](https://github.com/google/prettytensor)
-add-on package so we install that as well:
+Note that the GPU-version of TensorFlow also requires the installation of various
+NVIDIA drivers, which is not described here.
 
-    pip install tensorflow prettytensor
-
-It is much more complicated to install the GPU-version because you also need various NVIDIA drivers.
-That is not described here.
+### Testing
 
 You should now be able to run the tutorials in the Python Notebooks:
 
@@ -124,10 +129,6 @@ You should now be able to run the tutorials in the Python Notebooks:
     jupyter notebook
 
 This should start a web-browser that shows the list of tutorials. Click on a tutorial to load it.
-
-If you are new to using Python and Linux, etc. then this may be challenging
-to get working and you may need to do internet searches for error-messages, etc.
-It will get easier with practice.
 
 ## License (MIT)
 

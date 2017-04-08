@@ -1,0 +1,36 @@
+################################################################
+#
+# Python package requirements for the TensorFlow Tutorials:
+# https://github.com/Hvass-Labs/TensorFlow-Tutorials
+#
+# If you are using Anaconda then you can install all required
+# Python packages by running the following commands in a shell:
+#
+#     conda create --name tf python=3
+#     pip install -r requirements.txt
+#
+# Note that you have to edit this file to select whether you
+# want to install the CPU or GPU version of TensorFlow.
+#
+################################################################
+# Basic packages used in many of the tutorials.
+
+numpy
+scipy
+jupyter
+matplotlib
+Pillow
+scikit-learn
+
+################################################################
+# TensorFlow can be installed either as CPU or GPU versions.
+# You select which one to install by (un)commenting these lines.
+
+tensorflow		# CPU Version of TensorFlow.
+# tensorflow-gpu	# GPU version of TensorFlow.
+
+# Builder API for TensorFlow used in many of the tutorials.
+prettytensor
+
+################################################################
+
