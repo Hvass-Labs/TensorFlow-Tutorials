@@ -33,4 +33,10 @@ tensorflow		# CPU Version of TensorFlow.
 prettytensor
 
 ################################################################
+# The tutorial on Reinforcement Learning uses OpenAI Gym.
+# Uncomment this line if you want to run that tutorial.
+
+# gym[atari]
+
+################################################################
 
