@@ -2,6 +2,11 @@
 
 Most of the problems people are having are already described in the [installation instructions](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/README.md).
 
+You should first make a serious attempt to solve your problem.
+If you ask a question that has already been answered elsewhere, or if you do not
+give enough details about your problem, then your issue may be closed immediately. 
+Please don't waste my time!
+
 ## Python 3.5
 
 These tutorials were developed in **Python 3.5** and may give strange errors in Python 2.7
@@ -12,7 +17,7 @@ You need to **download the whole repository**, either using `git clone` or as a 
 
 ## Questions about TensorFlow
 
-General questions about TensorFlow should either be asked on [StackOverflow](http://stackoverflow.com/questions/tagged/tensorflow) or [GitHub](https://github.com/tensorflow/tensorflow/issues).
+General questions about TensorFlow should either be asked on [StackOverflow](http://stackoverflow.com/questions/tagged/tensorflow) or the [official TensorFlow repository](https://github.com/tensorflow/tensorflow/issues).
 
 ## Suggestions for Changes
 
