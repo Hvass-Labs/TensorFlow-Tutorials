@@ -23,9 +23,9 @@
 # Requirements:
 #
 # - Python 3.6 (Python 2.7 may not work)
-# - TensorFlow 1.0.1
-# - PrettyTensor 0.7.4
+# - TensorFlow 1.1.0
 # - OpenAI Gym 0.8.1
+# - PrettyTensor 0.7.4 (not required if you use tf.layers instead)
 #
 # Summary:
 #
@@ -158,7 +158,6 @@
 
 import numpy as np
 import tensorflow as tf
-import prettytensor as pt
 import gym
 import scipy.ndimage
 import sys
@@ -1101,14 +1100,22 @@ class NeuralNetwork:
     better at estimating the Q-values.
     """
 
-    def __init__(self, num_actions, replay_memory):
+    def __init__(self, num_actions, replay_memory, use_pretty_tensor=True):
         """
         :param num_actions:
             Number of discrete actions for the game-environment.
 
         :param replay_memory: 
             Object-instance of the ReplayMemory-class.
+
+        :param use_pretty_tensor:
+            Boolean whether to use PrettyTensor (True) which must then be
+            installed, or use the tf.layers API (False) which is already
+            built into TensorFlow.
         """
+
+        # Whether to use the PrettyTensor API (True) or tf.layers (False).
+        self.use_pretty_tensor = use_pretty_tensor
 
         # Replay-memory used for sampling random batches.
         self.replay_memory = replay_memory
@@ -1151,36 +1158,10 @@ class NeuralNetwork:
         self.count_episodes_increase = tf.assign(self.count_episodes,
                                                  self.count_episodes + 1)
 
-        # Initializer for the layers in the Neural Network.
-        # If you change the architecture of the network, particularly
-        # if you add or remove layers, then you may have to change
-        # the stddev-parameter here. The initial weights must result
-        # in the Neural Network outputting Q-values that are very close
-        # to zero - but the network weights must not be too low either
-        # because it will make it hard to train the network.
-        # You can experiment with values between 1e-2 and 1e-3.
-        init = tf.truncated_normal_initializer(mean=0.0, stddev=2e-2)
-
-        # Wrap the input to the Neural Network in a PrettyTensor object.
-        x_pretty = pt.wrap(self.x)
-
-        # Create the convolutional Neural Network using Pretty Tensor.
-        with pt.defaults_scope(activation_fn=tf.nn.relu):
-            self.q_values = x_pretty. \
-                conv2d(kernel=3, depth=16, stride=2, name='layer_conv1', weights=init). \
-                conv2d(kernel=3, depth=32, stride=2, name='layer_conv2', weights=init). \
-                conv2d(kernel=3, depth=64, stride=1, name='layer_conv3', weights=init). \
-                flatten(). \
-                fully_connected(size=1024, name='layer_fc1', weights=init). \
-                fully_connected(size=1024, name='layer_fc2', weights=init). \
-                fully_connected(size=1024, name='layer_fc3', weights=init). \
-                fully_connected(size=1024, name='layer_fc4', weights=init). \
-                fully_connected(size=num_actions, name='layer_fc_out', weights=init,
-                                activation_fn=None)
-
+        # The Neural Network will be constructed in the following.
         # Note that the architecture of this Neural Network is very
         # different from that used in the original DeepMind papers,
-        # which were something like this:
+        # which was something like this:
         # Input image:      84 x 84 x 4 (4 gray-scale images of 84 x 84 pixels).
         # Conv layer 1:     16 filters 8 x 8, stride 4, relu.
         # Conv layer 2:     32 filters 4 x 4, stride 2, relu.
@@ -1196,10 +1177,125 @@ class NeuralNetwork:
         # optimization iteration was performed after each step of the game,
         # and some more tricks.
 
-        # Loss-function which must be optimized. This the mean-squared error
-        # between the Q-values that are output by the Neural Network
-        # and the target Q-values.
-        self.loss = self.q_values.l2_regression(target=self.q_values_new)
+        # Initializer for the layers in the Neural Network.
+        # If you change the architecture of the network, particularly
+        # if you add or remove layers, then you may have to change
+        # the stddev-parameter here. The initial weights must result
+        # in the Neural Network outputting Q-values that are very close
+        # to zero - but the network weights must not be too low either
+        # because it will make it hard to train the network.
+        # You can experiment with values between 1e-2 and 1e-3.
+        init = tf.truncated_normal_initializer(mean=0.0, stddev=2e-2)
+
+        if self.use_pretty_tensor:
+            # This builds the Neural Network using the PrettyTensor API,
+            # which is a very elegant builder API, but some people are
+            # having problems installing and using it.
+
+            import prettytensor as pt
+
+            # Wrap the input to the Neural Network in a PrettyTensor object.
+            x_pretty = pt.wrap(self.x)
+
+            # Create the convolutional Neural Network using Pretty Tensor.
+            with pt.defaults_scope(activation_fn=tf.nn.relu):
+                self.q_values = x_pretty. \
+                    conv2d(kernel=3, depth=16, stride=2, name='layer_conv1', weights=init). \
+                    conv2d(kernel=3, depth=32, stride=2, name='layer_conv2', weights=init). \
+                    conv2d(kernel=3, depth=64, stride=1, name='layer_conv3', weights=init). \
+                    flatten(). \
+                    fully_connected(size=1024, name='layer_fc1', weights=init). \
+                    fully_connected(size=1024, name='layer_fc2', weights=init). \
+                    fully_connected(size=1024, name='layer_fc3', weights=init). \
+                    fully_connected(size=1024, name='layer_fc4', weights=init). \
+                    fully_connected(size=num_actions, name='layer_fc_out', weights=init,
+                                    activation_fn=None)
+
+            # Loss-function which must be optimized. This is the mean-squared
+            # error between the Q-values that are output by the Neural Network
+            # and the target Q-values.
+            self.loss = self.q_values.l2_regression(target=self.q_values_new)
+        else:
+            # This builds the Neural Network using the tf.layers API,
+            # which is very verbose and inelegant, but should work for everyone.
+
+            # Note that the checkpoints for Tutorial #16 which can be
+            # downloaded from the internet only support PrettyTensor.
+            # Although the Neural Networks appear to be identical when
+            # built using the PrettyTensor and tf.layers APIs,
+            # they actually create somewhat different TensorFlow graphs
+            # where the variables have different names, which means the
+            # checkpoints are incompatible for the two builder APIs.
+
+            # Padding used for the convolutional layers.
+            padding = 'SAME'
+
+            # Activation function for all convolutional and fully-connected
+            # layers, except the last.
+            activation = tf.nn.relu
+
+            # Reference to the lastly added layer of the Neural Network.
+            # This makes it easy to add or remove layers.
+            net = self.x
+
+            # First convolutional layer.
+            net = tf.layers.conv2d(inputs=net, name='layer_conv1',
+                                   filters=16, kernel_size=3, strides=2,
+                                   padding=padding,
+                                   kernel_initializer=init, activation=activation)
+
+            # Second convolutional layer.
+            net = tf.layers.conv2d(inputs=net, name='layer_conv2',
+                                   filters=32, kernel_size=3, strides=2,
+                                   padding=padding,
+                                   kernel_initializer=init, activation=activation)
+
+            # Third convolutional layer.
+            net = tf.layers.conv2d(inputs=net, name='layer_conv3',
+                                   filters=64, kernel_size=3, strides=1,
+                                   padding=padding,
+                                   kernel_initializer=init, activation=activation)
+
+            # Flatten output of the last convolutional layer so it can
+            # be input to a fully-connected (aka. dense) layer.
+            # TODO: For some bizarre reason, this function is not yet in tf.layers
+            # TODO: net = tf.layers.flatten(net)
+            net = tf.contrib.layers.flatten(net)
+
+            # First fully-connected (aka. dense) layer.
+            net = tf.layers.dense(inputs=net, name='layer_fc1', units=1024,
+                                  kernel_initializer=init, activation=activation)
+
+            # Second fully-connected layer.
+            net = tf.layers.dense(inputs=net, name='layer_fc2', units=1024,
+                                  kernel_initializer=init, activation=activation)
+
+            # Third fully-connected layer.
+            net = tf.layers.dense(inputs=net, name='layer_fc3', units=1024,
+                                  kernel_initializer=init, activation=activation)
+
+            # Fourth fully-connected layer.
+            net = tf.layers.dense(inputs=net, name='layer_fc4', units=1024,
+                                  kernel_initializer=init, activation=activation)
+
+            # Final fully-connected layer.
+            net = tf.layers.dense(inputs=net, name='layer_fc_out', units=num_actions,
+                                  kernel_initializer=init, activation=None)
+
+            # The output of the Neural Network is the estimated Q-values
+            # for each possible action in the game-environment.
+            self.q_values = net
+
+            # TensorFlow has a built-in loss-function for doing regression:
+            # self.loss = tf.nn.l2_loss(self.q_values - self.q_values_new)
+            # But it uses tf.reduce_sum() rather than tf.reduce_mean()
+            # which is used by PrettyTensor. This means the scale of the
+            # gradient is different and hence the hyper-parameters
+            # would have to be re-tuned. So instead we calculate the
+            # L2-loss similarly to how it is done in PrettyTensor.
+            squared_error = tf.square(self.q_values - self.q_values_new)
+            sum_squared_error = tf.reduce_sum(squared_error, axis=1)
+            self.loss = tf.reduce_mean(sum_squared_error)
 
         # Optimizer used for minimizing the loss-function.
         # Note the learning-rate is a placeholder variable so we can
@@ -1384,8 +1480,15 @@ class NeuralNetwork:
         you must use the function get_variable_value() for that.
         """
 
+        if self.use_pretty_tensor:
+            # PrettyTensor uses this name for the weights in a conv-layer.
+            variable_name = 'weights'
+        else:
+            # The tf.layers API uses this name for the weights in a conv-layer.
+            variable_name = 'kernel'
+
         with tf.variable_scope(layer_name, reuse=True):
-            variable = tf.get_variable('weights')
+            variable = tf.get_variable(variable_name)
 
         return variable
 
