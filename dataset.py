@@ -37,7 +37,7 @@ def one_hot_encoded(class_numbers, num_classes=None):
         Assume the integers are from zero to num_classes-1 inclusive.
 
     :param num_classes:
-        Number of classes. If None then use max(class_numbers)-1.
+        Number of classes. If None then use max(class_numbers)+1.
 
     :return:
         2-dim array of shape: [len(class_numbers), num_classes]
