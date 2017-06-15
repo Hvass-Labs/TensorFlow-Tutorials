@@ -37,15 +37,16 @@ def one_hot_encoded(class_numbers, num_classes=None):
         Assume the integers are from zero to num_classes-1 inclusive.
 
     :param num_classes:
-        Number of classes. If None then use max(cls)-1.
+        Number of classes. If None then use max(class_numbers)-1.
 
     :return:
-        2-dim array of shape: [len(cls), num_classes]
+        2-dim array of shape: [len(class_numbers), num_classes]
     """
 
     # Find the number of classes if None is provided.
+    # Assumes the lowest class-number is zero.
     if num_classes is None:
-        num_classes = np.max(class_numbers) - 1
+        num_classes = np.max(class_numbers) + 1
 
     return np.eye(num_classes, dtype=float)[class_numbers]
 
