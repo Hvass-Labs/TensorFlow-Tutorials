@@ -57,14 +57,13 @@ Even a few dollars are appreciated. Thanks!
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
 
-## Older Versions
+## Translations
 
-Sometimes the source-code has changed from that shown in the YouTube videos. This may be due to
-bug-fixes, improvements, or because code-sections are moved to separate files for easy re-use.
+These tutorials have been translated to the following languages:
 
-If you want to see the exact versions of the source-code that were used in the YouTube videos,
-then you can [browse the history](https://github.com/Hvass-Labs/TensorFlow-Tutorials/commits/master)
-of commits to the GitHub repository.
+* [Chinese](https://github.com/naivechen/TensorFlow-Tutorials)
+
+You can help by translating the remaining tutorials or reviewing the ones that have already been translated. You can also help by translating to other languages.
 
 ## Downloading
 
@@ -140,6 +139,15 @@ You should now be able to run the tutorials in the Python Notebooks:
 
 This should start a web-browser that shows the list of tutorials. Click on a tutorial to load it.
 
+## Older Versions
+
+Sometimes the source-code has changed from that shown in the YouTube videos. This may be due to
+bug-fixes, improvements, or because code-sections are moved to separate files for easy re-use.
+
+If you want to see the exact versions of the source-code that were used in the YouTube videos,
+then you can [browse the history](https://github.com/Hvass-Labs/TensorFlow-Tutorials/commits/master)
+of commits to the GitHub repository.
+
 ## License (MIT)
 
 These tutorials and source-code are published under the [MIT License](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/LICENSE)
@@ -149,4 +157,3 @@ A few of the images used for demonstration purposes may be under copyright. Thes
 
 You are very welcome to modify these tutorials and use them in your own projects.
 Please keep a link to the [original repository](https://github.com/Hvass-Labs/TensorFlow-Tutorials).
-
