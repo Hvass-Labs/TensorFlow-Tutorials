@@ -61,7 +61,7 @@ These tutorials are also available as [YouTube videos](https://www.youtube.com/p
 
 These tutorials have been translated to the following languages:
 
-* [Chinese](https://github.com/naivechen/TensorFlow-Tutorials)
+* [Chinese](https://github.com/thrillerist/TensorFlow-Tutorials)
 
 You can help by translating the remaining tutorials or reviewing the ones that have already been translated. You can also help by translating to other languages.
 
