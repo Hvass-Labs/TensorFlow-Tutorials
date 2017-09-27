@@ -47,6 +47,8 @@ Even a few dollars are appreciated. Thanks!
 
 13. Visual Analysis ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
 
+13-B. Visual Analysis (MNIST) ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
+
 14. DeepDream ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
 
 15. Style Transfer ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
