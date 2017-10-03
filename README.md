@@ -67,6 +67,10 @@ These tutorials have been translated to the following languages:
 
 You can help by translating the remaining tutorials or reviewing the ones that have already been translated. You can also help by translating to other languages.
 
+## Forks
+
+See the [selected list of forks](forks.md) for community modifications to these tutorials.
+
 ## Downloading
 
 Some of the Python Notebooks use source-code located in different files to allow for easy re-use
