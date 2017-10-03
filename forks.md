@@ -7,4 +7,4 @@ If you have made a fork of the TensorFlow Tutorials with substantial modificatio
 then please [open a new issue on GitHub](https://github.com/Hvass-Labs/TensorFlow-Tutorials/issues) with a link and short description.
 
 * [Keras port of some tutorials.](https://github.com/chidochipotle/TensorFlow-Tutorials)
-* [The Inception model as an OpenFaaS function.](https://github.com/Hvass-Labs/TensorFlow-Tutorials)
+* [The Inception model as an OpenFaaS function.](https://github.com/faas-and-furious/inception-function)
