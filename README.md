@@ -55,6 +55,8 @@ Even a few dollars are appreciated. Thanks!
 
 16. Reinforcement Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
 
+17. Estimator API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
