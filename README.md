@@ -57,6 +57,8 @@ Even a few dollars are appreciated. Thanks!
 
 17. Estimator API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
 
+18. TFRecords & Dataset API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb)) 
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).

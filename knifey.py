@@ -41,6 +41,9 @@ img_size = 200
 # Number of channels in each image, 3 channels: Red, Green, Blue.
 num_channels = 3
 
+# Shape of the numpy-array for an image.
+img_shape = [img_size, img_size, num_channels]
+
 # Length of an image when flattened to a 1-dim array.
 img_size_flat = img_size * img_size * num_channels
 
