@@ -41,7 +41,7 @@ Even a few dollars are appreciated. Thanks!
 
 9. Video Data ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
 
-10. Not available yet. Please [support this issue](https://github.com/tensorflow/tensorflow/issues/5036) on GitHub so we can get it done!
+10. Fine-Tuning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
 
 11. Adversarial Examples ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
 

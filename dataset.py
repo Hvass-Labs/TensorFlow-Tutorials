@@ -20,6 +20,7 @@
 
 import numpy as np
 import os
+import shutil
 from cache import cache
 
 ########################################################################
@@ -253,6 +254,75 @@ class DataSet:
                np.asarray(self.class_numbers_test), \
                one_hot_encoded(class_numbers=self.class_numbers_test,
                                num_classes=self.num_classes)
+
+    def copy_files(self, train_dir, test_dir):
+        """
+        Copy all the files in the training-set to train_dir
+        and copy all the files in the test-set to test_dir.
+
+        For example, the normal directory structure for the
+        different classes in the training-set is:
+
+        knifey-spoony/forky/
+        knifey-spoony/knifey/
+        knifey-spoony/spoony/
+
+        Normally the test-set is a sub-dir of the training-set:
+
+        knifey-spoony/forky/test/
+        knifey-spoony/knifey/test/
+        knifey-spoony/spoony/test/
+
+        But some APIs use another dir-structure for the training-set:
+        
+        knifey-spoony/train/forky/
+        knifey-spoony/train/knifey/
+        knifey-spoony/train/spoony/
+
+        and for the test-set:
+        
+        knifey-spoony/test/forky/
+        knifey-spoony/test/knifey/
+        knifey-spoony/test/spoony/
+
+        :param train_dir: Directory for the training-set e.g. 'knifey-spoony/train/'
+        :param test_dir: Directory for the test-set e.g. 'knifey-spoony/test/'
+        :return: Nothing. 
+        """
+
+        # Helper-function for actually copying the files.
+        def _copy_files(src_paths, dst_dir, class_numbers):
+
+            # Create a list of dirs for each class, e.g.:
+            # ['knifey-spoony/test/forky/',
+            #  'knifey-spoony/test/knifey/',
+            #  'knifey-spoony/test/spoony/']
+            class_dirs = [os.path.join(dst_dir, class_name + "/")
+                          for class_name in self.class_names]
+
+            # Check if each class-directory exists, otherwise create it.
+            for dir in class_dirs:
+                if not os.path.exists(dir):
+                    os.makedirs(dir)
+
+            # For all the file-paths and associated class-numbers,
+            # copy the file to the destination dir for that class.
+            for src, cls in zip(src_paths, class_numbers):
+                shutil.copy(src=src, dst=class_dirs[cls])
+
+        # Copy the files for the training-set.
+        _copy_files(src_paths=self.get_paths(test=False),
+                    dst_dir=train_dir,
+                    class_numbers=self.class_numbers)
+
+        print("- Copied training-set to:", train_dir)
+
+        # Copy the files for the test-set.
+        _copy_files(src_paths=self.get_paths(test=True),
+                    dst_dir=test_dir,
+                    class_numbers=self.class_numbers_test)
+
+        print("- Copied test-set to:", test_dir)
 
 
 ########################################################################

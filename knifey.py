@@ -28,6 +28,12 @@ import os
 # Set this before you start calling any of the functions below.
 data_dir = "data/knifey-spoony/"
 
+# Directory for the training-set after copying the files using copy_files().
+train_dir = os.path.join(data_dir, "train/")
+
+# Directory for the test-set after copying the files using copy_files().
+test_dir = os.path.join(data_dir, "test/")
+
 # URL for the data-set on the internet.
 data_url = "https://github.com/Hvass-Labs/knifey-spoony/raw/master/knifey-spoony.tar.gz"
 
@@ -90,6 +96,27 @@ def load():
 
     return dataset
 
+
+def copy_files():
+    """
+    Copy all the files in the training-set to train_dir
+    and copy all the files in the test-set to test_dir.
+
+    This creates the directories if they don't already exist,
+    and it overwrites the images if they already exist.
+
+    The images are originally stored in a directory-structure
+    that is incompatible with e.g. the Keras API. This function
+    copies the files to a dir-structure that works with e.g. Keras.
+    """
+
+    # Load the Knifey-Spoony dataset.
+    # This is very fast as it only gathers lists of the files
+    # and does not actually load the images into memory.
+    dataset = load()
+
+    # Copy the files to separate training- and test-dirs.
+    dataset.copy_files(train_dir=train_dir, test_dir=test_dir)
 
 ########################################################################
 
