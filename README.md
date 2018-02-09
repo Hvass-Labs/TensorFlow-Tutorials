@@ -57,6 +57,8 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 19. Hyper-Parameter Optimization ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb)) 
 
+20. Natural Language Processing ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
