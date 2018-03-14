@@ -59,6 +59,8 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 20. Natural Language Processing ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
 
+21. Machine Translation ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
