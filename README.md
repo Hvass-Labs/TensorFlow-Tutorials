@@ -61,6 +61,8 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 21. Machine Translation ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
 
+22. Image Captioning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
