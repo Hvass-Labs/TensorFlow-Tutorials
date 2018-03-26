@@ -63,6 +63,8 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 22. Image Captioning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
 
+23. Time-Series Prediction ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
+
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
