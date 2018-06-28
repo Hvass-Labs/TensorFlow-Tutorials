@@ -21,6 +21,7 @@ jupyter
 matplotlib
 Pillow
 scikit-learn
+pandas
 
 ################################################################
 # TensorFlow can be installed either as CPU or GPU versions.
