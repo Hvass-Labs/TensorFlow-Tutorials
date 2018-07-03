@@ -209,12 +209,12 @@ class NameLookup:
         """
 
         # Lookup the uid from the cls.
-        uid = self._cls_to_uid[cls]
+        if cls in self._cls_to_uid:
+            uid = self._cls_to_uid[cls]
 
-        # Lookup the name from the uid.
-        name = self.uid_to_name(uid=uid, only_first_name=only_first_name)
-
-        return name
+            # Lookup the name from the uid.
+            name = self.uid_to_name(uid=uid, only_first_name=only_first_name)
+            return name
 
 
 ########################################################################
