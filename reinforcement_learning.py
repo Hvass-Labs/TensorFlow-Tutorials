@@ -7,7 +7,7 @@
 # To train a Neural Network for playing the Atari game Breakout,
 # run the following command in a terminal window.
 #
-# python reinforcement-learning.py --env 'Breakout-v0' --training
+# python reinforcement_learning.py --env 'Breakout-v0' --training
 #
 # The agent should start to improve after a few hours, but a full
 # training run required 150 hours on a 2.6 GHz CPU and GTX 1070 GPU.
@@ -18,14 +18,13 @@
 # Once the Neural Network has been trained, you can test it and
 # watch it play the game by running this command in the terminal:
 #
-# python reinforcement-learning.py --env 'Breakout-v0' --render --episodes 2
+# python reinforcement_learning.py --env 'Breakout-v0' --render --episodes 2
 #
 # Requirements:
 #
 # - Python 3.6 (Python 2.7 may not work)
 # - TensorFlow 1.1.0
 # - OpenAI Gym 0.8.1
-# - PrettyTensor 0.7.4 (not required if you use tf.layers instead)
 #
 # Summary:
 #
@@ -165,7 +164,6 @@ import os
 import time
 import csv
 import argparse
-import download
 
 ########################################################################
 # File-paths are global variables for convenience so they don't
@@ -216,29 +214,6 @@ def update_paths(env_name):
     # File-path for the log-file for Q-values.
     log_q_values_path = os.path.join(checkpoint_dir, "log_q_values.txt")
 
-########################################################################
-# Download TensorFlow checkpoints.
-
-# URL's for the checkpoint-files.
-_checkpoint_url = {
-    "Breakout-v0": "http://hvass-labs.org/projects/tensorflow/tutorial16/Breakout-v0.tar.gz",
-    "SpaceInvaders-v0": "http://hvass-labs.org/projects/tensorflow/tutorial16/SpaceInvaders-v0.tar.gz"
-}
-
-
-def maybe_download_checkpoint(env_name):
-    """
-    Download and extract the TensorFlow checkpoint for the given
-    environment-name, if it does not already exist in checkpoint_base_dir.
-    You should first set this dir and call update_paths().
-    """
-
-    # Get the url for the game-environment.
-    url = _checkpoint_url[env_name]
-
-    # Download and extract the file if it does not already exist.
-    download.maybe_download_and_extract(url=url,
-                                        download_dir=checkpoint_base_dir)
 
 ########################################################################
 # Classes used for logging data during training.
@@ -1100,22 +1075,14 @@ class NeuralNetwork:
     better at estimating the Q-values.
     """
 
-    def __init__(self, num_actions, replay_memory, use_pretty_tensor=True):
+    def __init__(self, num_actions, replay_memory):
         """
         :param num_actions:
             Number of discrete actions for the game-environment.
 
         :param replay_memory: 
             Object-instance of the ReplayMemory-class.
-
-        :param use_pretty_tensor:
-            Boolean whether to use PrettyTensor (True) which must then be
-            installed, or use the tf.layers API (False) which is already
-            built into TensorFlow.
         """
-
-        # Whether to use the PrettyTensor API (True) or tf.layers (False).
-        self.use_pretty_tensor = use_pretty_tensor
 
         # Replay-memory used for sampling random batches.
         self.replay_memory = replay_memory
@@ -1187,115 +1154,80 @@ class NeuralNetwork:
         # You can experiment with values between 1e-2 and 1e-3.
         init = tf.truncated_normal_initializer(mean=0.0, stddev=2e-2)
 
-        if self.use_pretty_tensor:
-            # This builds the Neural Network using the PrettyTensor API,
-            # which is a very elegant builder API, but some people are
-            # having problems installing and using it.
+        # This builds the Neural Network using the tf.layers API,
+        # which is very verbose and inelegant, but should work for everyone.
 
-            import prettytensor as pt
+        # Padding used for the convolutional layers.
+        padding = 'SAME'
 
-            # Wrap the input to the Neural Network in a PrettyTensor object.
-            x_pretty = pt.wrap(self.x)
+        # Activation function for all convolutional and fully-connected
+        # layers, except the last.
+        activation = tf.nn.relu
 
-            # Create the convolutional Neural Network using Pretty Tensor.
-            with pt.defaults_scope(activation_fn=tf.nn.relu):
-                self.q_values = x_pretty. \
-                    conv2d(kernel=3, depth=16, stride=2, name='layer_conv1', weights=init). \
-                    conv2d(kernel=3, depth=32, stride=2, name='layer_conv2', weights=init). \
-                    conv2d(kernel=3, depth=64, stride=1, name='layer_conv3', weights=init). \
-                    flatten(). \
-                    fully_connected(size=1024, name='layer_fc1', weights=init). \
-                    fully_connected(size=1024, name='layer_fc2', weights=init). \
-                    fully_connected(size=1024, name='layer_fc3', weights=init). \
-                    fully_connected(size=1024, name='layer_fc4', weights=init). \
-                    fully_connected(size=num_actions, name='layer_fc_out', weights=init,
-                                    activation_fn=None)
+        # Reference to the lastly added layer of the Neural Network.
+        # This makes it easy to add or remove layers.
+        net = self.x
 
-            # Loss-function which must be optimized. This is the mean-squared
-            # error between the Q-values that are output by the Neural Network
-            # and the target Q-values.
-            self.loss = self.q_values.l2_regression(target=self.q_values_new)
-        else:
-            # This builds the Neural Network using the tf.layers API,
-            # which is very verbose and inelegant, but should work for everyone.
+        # First convolutional layer.
+        net = tf.layers.conv2d(inputs=net, name='layer_conv1',
+                               filters=16, kernel_size=3, strides=2,
+                               padding=padding,
+                               kernel_initializer=init, activation=activation)
 
-            # Note that the checkpoints for Tutorial #16 which can be
-            # downloaded from the internet only support PrettyTensor.
-            # Although the Neural Networks appear to be identical when
-            # built using the PrettyTensor and tf.layers APIs,
-            # they actually create somewhat different TensorFlow graphs
-            # where the variables have different names, which means the
-            # checkpoints are incompatible for the two builder APIs.
+        # Second convolutional layer.
+        net = tf.layers.conv2d(inputs=net, name='layer_conv2',
+                               filters=32, kernel_size=3, strides=2,
+                               padding=padding,
+                               kernel_initializer=init, activation=activation)
 
-            # Padding used for the convolutional layers.
-            padding = 'SAME'
+        # Third convolutional layer.
+        net = tf.layers.conv2d(inputs=net, name='layer_conv3',
+                               filters=64, kernel_size=3, strides=1,
+                               padding=padding,
+                               kernel_initializer=init, activation=activation)
 
-            # Activation function for all convolutional and fully-connected
-            # layers, except the last.
-            activation = tf.nn.relu
+        # Flatten output of the last convolutional layer so it can
+        # be input to a fully-connected (aka. dense) layer.
+        # TODO: For some bizarre reason, this function is not yet in tf.layers
+        # TODO: net = tf.layers.flatten(net)
+        net = tf.contrib.layers.flatten(net)
 
-            # Reference to the lastly added layer of the Neural Network.
-            # This makes it easy to add or remove layers.
-            net = self.x
+        # First fully-connected (aka. dense) layer.
+        net = tf.layers.dense(inputs=net, name='layer_fc1', units=1024,
+                              kernel_initializer=init, activation=activation)
 
-            # First convolutional layer.
-            net = tf.layers.conv2d(inputs=net, name='layer_conv1',
-                                   filters=16, kernel_size=3, strides=2,
-                                   padding=padding,
-                                   kernel_initializer=init, activation=activation)
+        # Second fully-connected layer.
+        net = tf.layers.dense(inputs=net, name='layer_fc2', units=1024,
+                              kernel_initializer=init, activation=activation)
 
-            # Second convolutional layer.
-            net = tf.layers.conv2d(inputs=net, name='layer_conv2',
-                                   filters=32, kernel_size=3, strides=2,
-                                   padding=padding,
-                                   kernel_initializer=init, activation=activation)
+        # Third fully-connected layer.
+        net = tf.layers.dense(inputs=net, name='layer_fc3', units=1024,
+                              kernel_initializer=init, activation=activation)
 
-            # Third convolutional layer.
-            net = tf.layers.conv2d(inputs=net, name='layer_conv3',
-                                   filters=64, kernel_size=3, strides=1,
-                                   padding=padding,
-                                   kernel_initializer=init, activation=activation)
+        # Fourth fully-connected layer.
+        net = tf.layers.dense(inputs=net, name='layer_fc4', units=1024,
+                              kernel_initializer=init, activation=activation)
 
-            # Flatten output of the last convolutional layer so it can
-            # be input to a fully-connected (aka. dense) layer.
-            # TODO: For some bizarre reason, this function is not yet in tf.layers
-            # TODO: net = tf.layers.flatten(net)
-            net = tf.contrib.layers.flatten(net)
+        # Final fully-connected layer.
+        net = tf.layers.dense(inputs=net, name='layer_fc_out', units=num_actions,
+                              kernel_initializer=init, activation=None)
 
-            # First fully-connected (aka. dense) layer.
-            net = tf.layers.dense(inputs=net, name='layer_fc1', units=1024,
-                                  kernel_initializer=init, activation=activation)
+        # The output of the Neural Network is the estimated Q-values
+        # for each possible action in the game-environment.
+        self.q_values = net
 
-            # Second fully-connected layer.
-            net = tf.layers.dense(inputs=net, name='layer_fc2', units=1024,
-                                  kernel_initializer=init, activation=activation)
-
-            # Third fully-connected layer.
-            net = tf.layers.dense(inputs=net, name='layer_fc3', units=1024,
-                                  kernel_initializer=init, activation=activation)
-
-            # Fourth fully-connected layer.
-            net = tf.layers.dense(inputs=net, name='layer_fc4', units=1024,
-                                  kernel_initializer=init, activation=activation)
-
-            # Final fully-connected layer.
-            net = tf.layers.dense(inputs=net, name='layer_fc_out', units=num_actions,
-                                  kernel_initializer=init, activation=None)
-
-            # The output of the Neural Network is the estimated Q-values
-            # for each possible action in the game-environment.
-            self.q_values = net
-
-            # TensorFlow has a built-in loss-function for doing regression:
-            # self.loss = tf.nn.l2_loss(self.q_values - self.q_values_new)
-            # But it uses tf.reduce_sum() rather than tf.reduce_mean()
-            # which is used by PrettyTensor. This means the scale of the
-            # gradient is different and hence the hyper-parameters
-            # would have to be re-tuned. So instead we calculate the
-            # L2-loss similarly to how it is done in PrettyTensor.
-            squared_error = tf.square(self.q_values - self.q_values_new)
-            sum_squared_error = tf.reduce_sum(squared_error, axis=1)
-            self.loss = tf.reduce_mean(sum_squared_error)
+        # TensorFlow has a built-in loss-function for doing regression:
+        # self.loss = tf.nn.l2_loss(self.q_values - self.q_values_new)
+        # But it uses tf.reduce_sum() rather than tf.reduce_mean()
+        # which is used by PrettyTensor. This means the scale of the
+        # gradient is different and hence the hyper-parameters
+        # would have to be re-tuned, because they were tuned for
+        # the original version of this tutorial using PrettyTensor.
+        # So instead we calculate the L2-loss similarly to how it is
+        # done in PrettyTensor.
+        squared_error = tf.square(self.q_values - self.q_values_new)
+        sum_squared_error = tf.reduce_sum(squared_error, axis=1)
+        self.loss = tf.reduce_mean(sum_squared_error)
 
         # Optimizer used for minimizing the loss-function.
         # Note the learning-rate is a placeholder variable so we can
@@ -1480,12 +1412,8 @@ class NeuralNetwork:
         you must use the function get_variable_value() for that.
         """
 
-        if self.use_pretty_tensor:
-            # PrettyTensor uses this name for the weights in a conv-layer.
-            variable_name = 'weights'
-        else:
-            # The tf.layers API uses this name for the weights in a conv-layer.
-            variable_name = 'kernel'
+        # The tf.layers API uses this name for the weights in a conv-layer.
+        variable_name = 'kernel'
 
         with tf.variable_scope(layer_name, reuse=True):
             variable = tf.get_variable(variable_name)

@@ -17,7 +17,7 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 2. Convolutional Neural Network ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
 
-3. Pretty Tensor ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
+3. ~~Pretty Tensor~~ ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
 
 3-B. Layers API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
 
@@ -68,6 +68,14 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
+
+## Obsolete Tutorials
+
+Some of these tutorials use an API called PrettyTensor for creating
+Neural Networks in TensorFlow, but the PrettyTensor API is now obsolete.
+Some of the Notebooks are therefore also obsolete and they are clearly
+marked at the top of each Notebook. It is recommended that you
+instead use the Keras API for creating Neural Networks in TensorFlow.
 
 ## Translations
 
