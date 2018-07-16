@@ -7,6 +7,7 @@
 # Python packages by running the following commands in a shell:
 #
 #     conda create --name tf python=3
+#     source activate tf
 #     pip install -r requirements.txt
 #
 # Note that you have to edit this file to select whether you
