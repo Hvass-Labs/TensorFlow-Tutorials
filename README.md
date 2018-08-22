@@ -13,57 +13,109 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 
 ## Tutorials
 
-1. Simple Linear Model ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/01_Simple_Linear_Model.ipynb))
+1. Simple Linear Model
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/01_Simple_Linear_Model.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/01_Simple_Linear_Model.ipynb))
 
-2. Convolutional Neural Network ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
+2. Convolutional Neural Network
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
 
-3. ~~Pretty Tensor~~ ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
+3. ~~Pretty Tensor~~
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
 
-3-B. Layers API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
+3-B. Layers API
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
 
-3-C. Keras API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
+3-C. Keras API
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
 
-4. Save & Restore ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/04_Save_Restore.ipynb))
+4. Save & Restore
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/04_Save_Restore.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/04_Save_Restore.ipynb))
 
-5. Ensemble Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/05_Ensemble_Learning.ipynb))
+5. Ensemble Learning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/05_Ensemble_Learning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/05_Ensemble_Learning.ipynb))
 
-6. CIFAR-10 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/06_CIFAR-10.ipynb))
+6. CIFAR-10
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/06_CIFAR-10.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/06_CIFAR-10.ipynb))
 
-7. Inception Model ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/07_Inception_Model.ipynb))
+7. Inception Model
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/07_Inception_Model.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/07_Inception_Model.ipynb))
 
-8. Transfer Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb))
+8. Transfer Learning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb))
 
-9. Video Data ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
+9. Video Data
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
 
-10. Fine-Tuning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
+10. Fine-Tuning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
 
-11. Adversarial Examples ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
+11. Adversarial Examples
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
 
-12. Adversarial Noise for MNIST ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/12_Adversarial_Noise_MNIST.ipynb))
+12. Adversarial Noise for MNIST
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/12_Adversarial_Noise_MNIST.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/12_Adversarial_Noise_MNIST.ipynb))
 
-13. Visual Analysis ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
+13. Visual Analysis
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
 
-13-B. Visual Analysis for MNIST ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
+13-B. Visual Analysis for MNIST
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
 
-14. DeepDream ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
+14. DeepDream
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
 
-15. Style Transfer ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
+15. Style Transfer
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
 
-16. Reinforcement Learning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
+16. Reinforcement Learning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
 
-17. Estimator API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
+17. Estimator API
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
 
-18. TFRecords & Dataset API ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb)) 
+18. TFRecords & Dataset API
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb)) 
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb))
 
-19. Hyper-Parameter Optimization ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb)) 
+19. Hyper-Parameter Optimization
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb)) 
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb))
 
-20. Natural Language Processing ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
+20. Natural Language Processing
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb))
 
-21. Machine Translation ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
+21. Machine Translation
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
 
-22. Image Captioning ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
+22. Image Captioning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
 
-23. Time-Series Prediction ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
+23. Time-Series Prediction
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
 
 ## Videos
 
@@ -129,10 +181,17 @@ There are reports that Python 2.7 gives error messages with these tutorials. Ple
 
 ### Environment
 
-After installing [Anaconda](https://www.continuum.io/downloads), you should create a [conda environment](http://conda.pydata.org/docs/using/envs.html)
+After installing [Anaconda](https://www.continuum.io/downloads), you should create a
+[conda environment](http://conda.pydata.org/docs/using/envs.html)
 so you do not destroy your main installation in case you make a mistake somewhere:
 
     conda create --name tf python=3
+
+When Python gets updated to a new version, it takes a while before TensorFlow also
+uses the new Python version. So if the TensorFlow installation fails, then you may
+have to specify an older Python version for your new environment, such as: 
+
+    conda create --name tf python=3.6
 
 Now you can switch to the new environment by running the following (on Linux):
 
@@ -154,14 +213,38 @@ in a terminal:
 Note that the GPU-version of TensorFlow also requires the installation of various
 NVIDIA drivers, which is not described here.
 
-### Testing
+## How To Run
 
-You should now be able to run the tutorials in the Python Notebooks:
+If you have followed the above installation instructions, you should
+now be able to run the tutorials in the Python Notebooks:
 
     cd ~/development/TensorFlow-Tutorials/  # Your installation directory.
     jupyter notebook
 
 This should start a web-browser that shows the list of tutorials. Click on a tutorial to load it.
+
+### Run in Google Colab
+
+If you do not want to install anything on your own computer, then the Notebooks
+can be viewed, edited and run entirely on the internet by using
+[Google Colab](https://colab.research.google.com). There is a
+[YouTube video](https://www.youtube.com/watch?v=Hs6HI2YWchM) explaining how to do this.
+You click the "Google Colab"-link next to each tutorial listed above.
+You can view the Notebook on Colab but in order to run it you need to login using
+your Google account.
+Then you need to execute the following commands at the top of the Notebook,
+which clones the contents of this repository to your work-directory on Colab.
+
+    import os
+    work_dir = "/content/TensorFlow-Tutorials/"
+    if os.getcwd() != work_dir:
+        !git clone https://github.com/Hvass-Labs/TensorFlow-Tutorials.git
+    os.chdir(work_dir)
+
+All required packages should already be installed on Colab, otherwise you
+can run the following command:
+
+    !pip install -r requirements.txt
 
 ## Older Versions
 
