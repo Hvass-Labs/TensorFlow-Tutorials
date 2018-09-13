@@ -133,15 +133,31 @@ instead use the Keras API for creating Neural Networks in TensorFlow.
 
 These tutorials have been translated to the following languages:
 
-* [Chinese](https://github.com/thrillerist/TensorFlow-Tutorials)
+* [Chinese](https://github.com/Hvass-Labs/TensorFlow-Tutorials-Chinese)
+
+### New Translations
 
 You can help by translating the remaining tutorials or reviewing the ones that have already been translated. You can also help by translating to other languages.
+
+It is a very big job to translate all the tutorials, so you should just start with Tutorials #01, #02 and #03-C which are the most important for beginners.
+
+### New Videos
+
+You are also very welcome to record your own YouTube videos in other languages. It is strongly recommended that you get a decent microphone because good sound quality is very important. I used `vokoscreen` for recording the videos and the free [DaVinci Resolve](https://www.blackmagicdesign.com/products/davinciresolve/) for editing the videos.
 
 ## Forks
 
 See the [selected list of forks](forks.md) for community modifications to these tutorials.
 
-## Downloading
+## Installation
+
+There are different ways of installing and running TensorFlow. This section describes how I did it
+for these tutorials. You may want to do it differently and you can search the internet for instructions.
+
+If you are new to using Python and Linux then this may be challenging
+to get working and you may need to do internet searches for error-messages, etc.
+It will get easier with practice. You can also run the tutorials without installing
+anything by using Google Colab, see further below.
 
 Some of the Python Notebooks use source-code located in different files to allow for easy re-use
 across multiple tutorials. It is therefore recommended that you download the whole repository
@@ -159,30 +175,16 @@ This also makes it easy to update the tutorials, simply by executing this comman
 
     git pull
 
-### Zip-File
+### Download Zip-File
 
 You can also [download](https://github.com/Hvass-Labs/TensorFlow-Tutorials/archive/master.zip)
 the contents of the GitHub repository as a Zip-file and extract it manually.
 
-## Installation
-
-There are different ways of installing and running TensorFlow. This section describes how I did it
-for these tutorials. You may want to do it differently and you can search the internet for instructions.
-
-If you are new to using Python and Linux, etc. then this may be challenging
-to get working and you may need to do internet searches for error-messages, etc.
-It will get easier with practice.
-
-### Python Version 3.5 or Later
-
-These tutorials were developed on Linux using **Python 3.5 / 3.6** (the [Anaconda](https://www.continuum.io/downloads) distribution) and [PyCharm](https://www.jetbrains.com/pycharm/).
-
-There are reports that Python 2.7 gives error messages with these tutorials. Please make sure you are using **Python 3.5** or later!
-
 ### Environment
 
-After installing [Anaconda](https://www.continuum.io/downloads), you should create a
-[conda environment](http://conda.pydata.org/docs/using/envs.html)
+I use [Anaconda](https://www.continuum.io/downloads) because it comes with many Python
+packages already installed and it is easy to work with. After installing Anaconda,
+you should create a [conda environment](http://conda.pydata.org/docs/using/envs.html)
 so you do not destroy your main installation in case you make a mistake somewhere:
 
     conda create --name tf python=3
@@ -212,6 +214,12 @@ in a terminal:
 
 Note that the GPU-version of TensorFlow also requires the installation of various
 NVIDIA drivers, which is not described here.
+
+### Python Version 3.5 or Later
+
+These tutorials were developed on Linux using **Python 3.5 / 3.6** (the [Anaconda](https://www.continuum.io/downloads) distribution) and [PyCharm](https://www.jetbrains.com/pycharm/).
+
+There are reports that Python 2.7 gives error messages with these tutorials. Please make sure you are using **Python 3.5** or later!
 
 ## How To Run
 
