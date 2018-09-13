@@ -158,7 +158,7 @@
 import numpy as np
 import tensorflow as tf
 import gym
-import scipy.ndimage
+import scipy
 import sys
 import os
 import time
