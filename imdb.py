@@ -54,7 +54,7 @@ def _read_text_file(path):
     It is returned as a single string where all lines are concatenated.
     """
 
-    with open(path, 'rt') as file:
+    with open(path, 'rt', encoding='utf-8') as file:
         # Read a list of strings.
         lines = file.readlines()
 
