@@ -158,7 +158,7 @@
 import numpy as np
 import tensorflow as tf
 import gym
-import scipy
+import PIL.Image
 import sys
 import os
 import time
@@ -405,6 +405,9 @@ state_width = 80
 # Size of each image in the state.
 state_img_size = np.array([state_height, state_width])
 
+# Size of each image in the state. Reversed order used by PIL.Image.
+state_img_size_reverse = tuple(reversed(state_img_size))
+
 # Number of images in the state.
 state_channels = 2
 
@@ -435,12 +438,19 @@ def _pre_process_image(image):
     """Pre-process a raw image from the game-environment."""
 
     # Convert image to gray-scale.
-    img = _rgb_to_grayscale(image)
+    img_gray = _rgb_to_grayscale(image=image)
 
-    # Resize to the desired size using SciPy for convenience.
-    img = scipy.misc.imresize(img, size=state_img_size, interp='bicubic')
+    # Create PIL-object from numpy array.
+    img = PIL.Image.fromarray(img_gray)
 
-    return img
+    # Resize the image.
+    img_resized = img.resize(size=state_img_size_reverse,
+                             resample=PIL.Image.LINEAR)
+
+    # Convert 8-bit pixel values back to floating-point.
+    img_resized = np.float32(img_resized)
+
+    return img_resized
 
 
 class MotionTracer:
