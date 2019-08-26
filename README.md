@@ -243,9 +243,10 @@ your Google account.
 Then you need to execute the following commands at the top of the Notebook,
 which clones the contents of this repository to your work-directory on Colab.
 
+    # Clone the repository from GitHub to Google Colab's temporary drive.
     import os
     work_dir = "/content/TensorFlow-Tutorials/"
-    if os.getcwd() != work_dir:
+    if not os.path.exists(work_dir):
         !git clone https://github.com/Hvass-Labs/TensorFlow-Tutorials.git
     os.chdir(work_dir)
 
