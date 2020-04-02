@@ -24,11 +24,9 @@ Pillow
 scikit-learn
 
 ################################################################
-# TensorFlow can be installed either as CPU or GPU versions.
-# You select which one to install by (un)commenting these lines.
+# TensorFlow v.2.1 and above include both CPU and GPU versions.
 
-tensorflow		# CPU Version of TensorFlow.
-# tensorflow-gpu	# GPU version of TensorFlow.
+tensorflow
 
 ################################################################
 # Some tutorials use other individual Python packages.

@@ -11,7 +11,10 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 * The source-code is well-documented.
 * There is a [YouTube video](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ) for each tutorial.
 
-## Tutorials
+## Tutorials for TensorFlow 2
+
+The following tutorials have been updated and work with **TensorFlow 2**
+(some of them run in "v.1 compatibility mode").
 
 1. Simple Linear Model
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/01_Simple_Linear_Model.ipynb))
@@ -21,17 +24,55 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/02_Convolutional_Neural_Network.ipynb))
 
-3. ~~Pretty Tensor~~
+3-C. Keras API
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
+
+10. Fine-Tuning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
+
+13-B. Visual Analysis for MNIST
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
+
+16. Reinforcement Learning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
+
+19. Hyper-Parameter Optimization
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb)) 
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb))
+
+20. Natural Language Processing
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb))
+
+21. Machine Translation
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
+
+22. Image Captioning
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
+
+23. Time-Series Prediction
+([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
+([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
+
+## Tutorials for TensorFlow 1
+
+The following tutorials only work with the older **TensorFlow 1** API, so you
+would need to install an older version of TensorFlow to run these. It would take
+too much time and effort to convert these tutorials to TensorFlow 2.
+
+3. Pretty Tensor
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03_PrettyTensor.ipynb))
 
 3-B. Layers API
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03B_Layers_API.ipynb))
-
-3-C. Keras API
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/03C_Keras_API.ipynb))
 
 4. Save & Restore
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/04_Save_Restore.ipynb))
@@ -57,10 +98,6 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/09_Video_Data.ipynb))
 
-10. Fine-Tuning
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/10_Fine-Tuning.ipynb))
-
 11. Adversarial Examples
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/11_Adversarial_Examples.ipynb))
@@ -73,10 +110,6 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/13_Visual_Analysis.ipynb))
 
-13-B. Visual Analysis for MNIST
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/13B_Visual_Analysis_MNIST.ipynb))
-
 14. DeepDream
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/14_DeepDream.ipynb))
@@ -84,10 +117,6 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 15. Style Transfer
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/15_Style_Transfer.ipynb))
-
-16. Reinforcement Learning
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/16_Reinforcement_Learning.ipynb))
 
 17. Estimator API
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/17_Estimator_API.ipynb))
@@ -97,37 +126,9 @@ Original author is [Magnus Erik Hvass Pedersen](http://www.hvass-labs.org)
 ([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb)) 
 ([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/18_TFRecords_Dataset_API.ipynb))
 
-19. Hyper-Parameter Optimization
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb)) 
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/19_Hyper-Parameters.ipynb))
-
-20. Natural Language Processing
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb)) 
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/20_Natural_Language_Processing.ipynb))
-
-21. Machine Translation
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/21_Machine_Translation.ipynb))
-
-22. Image Captioning
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/22_Image_Captioning.ipynb))
-
-23. Time-Series Prediction
-([Notebook](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
-([Google Colab](https://colab.research.google.com/github/Hvass-Labs/TensorFlow-Tutorials/blob/master/23_Time-Series-Prediction.ipynb))
-
 ## Videos
 
 These tutorials are also available as [YouTube videos](https://www.youtube.com/playlist?list=PL9Hr9sNUjfsmEu1ZniY0XpHSzl5uihcXZ).
-
-## Obsolete Tutorials
-
-Some of these tutorials use an API called PrettyTensor for creating
-Neural Networks in TensorFlow, but the PrettyTensor API is now obsolete.
-Some of the Notebooks are therefore also obsolete and they are clearly
-marked at the top of each Notebook. It is recommended that you
-instead use the Keras API for creating Neural Networks in TensorFlow.
 
 ## Translations
 
@@ -203,8 +204,6 @@ Now you can switch to the new environment by running the following (on Linux):
 
 The tutorials require several Python packages to be installed. The packages are listed in
 [requirements.txt](https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/requirements.txt)
-First you need to edit this file and select whether you want to install the CPU or GPU
-version of TensorFlow.
 
 To install the required Python packages and dependencies you first have to activate the
 conda-environment as described above, and then you run the following command
@@ -212,8 +211,9 @@ in a terminal:
 
     pip install -r requirements.txt
 
-Note that the GPU-version of TensorFlow also requires the installation of various
-NVIDIA drivers, which is not described here.
+Starting with TensorFlow 2.1 it includes both the CPU and GPU versions and will
+automatically switch if you have a GPU. But this requires the installation of various
+NVIDIA drivers, which is a bit complicated and is not described here.
 
 ### Python Version 3.5 or Later
 

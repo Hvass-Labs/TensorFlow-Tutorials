@@ -155,8 +155,12 @@
 #
 ########################################################################
 
+# Use TensorFlow v.2 with this old v.1 code.
+# E.g. placeholder variables and sessions have changed in TF2.
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 import numpy as np
-import tensorflow as tf
 import gym
 import PIL.Image
 import sys
@@ -1198,9 +1202,7 @@ class NeuralNetwork:
 
         # Flatten output of the last convolutional layer so it can
         # be input to a fully-connected (aka. dense) layer.
-        # TODO: For some bizarre reason, this function is not yet in tf.layers
-        # TODO: net = tf.layers.flatten(net)
-        net = tf.contrib.layers.flatten(net)
+        net = tf.layers.flatten(net)
 
         # First fully-connected (aka. dense) layer.
         net = tf.layers.dense(inputs=net, name='layer_fc1', units=1024,
