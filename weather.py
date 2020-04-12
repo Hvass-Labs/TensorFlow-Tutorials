@@ -165,8 +165,8 @@ def _resample(df):
     finally down-sampling to 60-minute intervals.
     """
 
-    # Remove all empty rows and columns.
-    df_res = df.dropna(axis=[0, 1], how='all')
+    # Remove all empty rows.
+    df_res = df.dropna(how='all')
 
     # Upsample so the time-series has data for every minute.
     df_res = df_res.resample('1T')
