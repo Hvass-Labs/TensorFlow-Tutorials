@@ -110,7 +110,7 @@ def video2images(in_dir, out_dir, crop_size, out_size, framerate, video_exts):
                 print("- Output images: {0}".format(new_file_path))
 
                 # Command to be run in the shell for the video-conversion tool.
-                cmd = "avconv -i {0} -r {1} -vf crop={2}:{2} -vf scale={3}:{3} -qscale 2 {4}"
+                cmd = "ffmpeg -i {0} -r {1} -vf \"crop={2}:{2}, scale={3}:{3}\" -qscale 2 {4}"
 
                 # Fill in the arguments for the command-line.
                 cmd = cmd.format(in_file, framerate, crop_size, out_size, new_file_path)
